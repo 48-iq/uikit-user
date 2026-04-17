@@ -11,7 +11,10 @@ export class UserService {
 
   async create(args: { id: string; email: string }) {
     const { id, email } = args;
-    const user = await this.userRepository.findOne({ where: { id } });
+    const exists = await this.userRepository.existsBy({ id });
+    if (exists) {
+      throw new Error('User already exists');
+    }
     return this.userRepository.save({ id, email });
   }
 
