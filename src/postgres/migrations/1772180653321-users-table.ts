@@ -10,8 +10,7 @@ export class UsersTable1772180653321 implements MigrationInterface {
           "username" character varying PRIMARY KEY,
           "email" character varying UNIQUE NOT NULL,
           "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-          "updatedAt" TIMESTAMP,
-          CONSTRAINT "PK_users_id" PRIMARY KEY ("username")
+          "updatedAt" TIMESTAMP
         );
       `);
     }

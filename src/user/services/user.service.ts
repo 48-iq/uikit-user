@@ -20,6 +20,7 @@ export class UserService {
   }
 
   async update(id: string, args: { email: string }) {
+    
     const user = await this.userRepository.findOneOrFail({ where: { id } });
     user.email = args.email;
     return this.userRepository.save(user);

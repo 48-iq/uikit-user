@@ -12,7 +12,7 @@ export class UserController {
     });
   }
 
-  @Get(':/id')
+  @Get('/:id')
   async getUser(
     @Param('id') id: string,
   ) {
