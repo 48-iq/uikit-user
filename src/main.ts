@@ -1,12 +1,15 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
+import { JwtGuard } from './security/jwt.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
 
   const corsOrigin = configService.getOrThrow<string>('CORS_ORIGIN');
+  
+  const jwtGuard = app.get(JwtGuard);
 
   app.enableCors({
     "origin": corsOrigin,
@@ -16,6 +19,8 @@ async function bootstrap() {
     "allowedHeaders": "Content-Type, Accept, Authorization",
     "optionsSuccessStatus": 204
   });
+
+  app.useGlobalGuards(jwtGuard);
 
   await app.listen(process.env.PORT ?? 3000);
 }
