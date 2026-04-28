@@ -9,6 +9,7 @@ export class UsersTable1772180653321 implements MigrationInterface {
         CREATE TABLE users (
           "id" character varying PRIMARY KEY,
           "email" character varying UNIQUE NOT NULL,
+          "username" character varying NOT NULL,
           "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
           "updatedAt" TIMESTAMP
         );

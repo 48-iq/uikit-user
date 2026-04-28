@@ -9,6 +9,9 @@ export class User {
   id: string;
 
   @Column()
+  username: string;
+
+  @Column()
   email: string;
 
   @CreateDateColumn({type: 'timestamp', default: () => "CURRENT_TIMESTAMP(6)"})

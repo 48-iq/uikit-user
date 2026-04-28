@@ -25,6 +25,7 @@ export class UserController {
   async createUser(@Body() body: UserCreateDto) {
     await this.userService.create({
       id: body.username,
+      username: body.username,
       email: body.email,
     });
   }
@@ -36,6 +37,7 @@ export class UserController {
     const user = await this.userService.get(username);
     const userEntityDto = new UserEntityDto({
       id: user.id,
+      username: user.username,
       email: user.email,
       createdAt: user.createdAt.toISOString(),
       updatedAt: user.updatedAt?.toISOString() ?? 'none',
@@ -48,6 +50,7 @@ export class UserController {
     const user = await this.userService.get(id);
     const userEntityDto = new UserEntityDto({
       id: user.id,
+      username: user.username,
       email: user.email,
       createdAt: user.createdAt.toISOString(),
       updatedAt: user.updatedAt?.toISOString() ?? 'none',

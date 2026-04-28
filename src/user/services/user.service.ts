@@ -9,13 +9,13 @@ export class UserService {
     @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
 
-  async create(args: { id: string; email: string }) {
-    const { id, email } = args;
+  async create(args: { id: string; email: string, username: string }) {
+    const { id, email, username } = args;
     const exists = await this.userRepository.existsBy({ id });
     if (exists) {
       throw new Error('User already exists');
     }
-    return this.userRepository.save({ id, email });
+    return this.userRepository.save({ id, email, username });
   // TODO:
   }
 
