@@ -16,6 +16,7 @@ export class UserService {
       throw new Error('User already exists');
     }
     return this.userRepository.save({ id, email });
+  // TODO:
   }
 
   async get(id: string) {
