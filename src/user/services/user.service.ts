@@ -15,14 +15,9 @@ export class UserService {
     if (exists) {
       throw new Error('User already exists');
     }
+    const newUser =  this.userRepository.save({ id, email, username });
 
-    let user = new User();
-
-    user.id = id;
-    user.email = email;
-    user.username = username;
-
-    return this.userRepository.save(user);
+    return newUser;
   // TODO:
   }
 

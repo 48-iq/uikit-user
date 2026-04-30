@@ -32,12 +32,11 @@ export class UserController {
 
   @Get('/me')
   async getMe(@Req() req: Request,) {
-    const username = req['authPayload']['username'];
-
-    const user = await this.userService.get(username);
+    const userId = req['authPayload']['userId'];
+    const user = await this.userService.get(userId);
     const userEntityDto = new UserEntityDto({
       id: user.id,
-      username: user.username,
+      username: user.id,
       email: user.email,
       createdAt: user.createdAt.toISOString(),
       updatedAt: user.updatedAt?.toISOString() ?? 'none',
@@ -60,7 +59,7 @@ export class UserController {
 
   @Put()
   async updateUser(@Req() request: Request, @Body() body: UserUpdateDto) {
-    const id = request['authPayload'].id;
+    const id = request['authPayload']['userId'];
     await this.userService.update(id, { email: body.email });
   }
 }
