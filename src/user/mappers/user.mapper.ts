@@ -8,6 +8,7 @@ export class UserMapper {
   toUserResultDto(user: User): ResultDto<UserDto> {
     const payload = new UserDto();
     payload.id = user.id;
+    payload.username = user.username;
     payload.createdAt = user.createdAt?.toISOString() ?? null;
     payload.updatedAt = user.updatedAt?.toISOString() ?? null;
     payload.email = user.email;
