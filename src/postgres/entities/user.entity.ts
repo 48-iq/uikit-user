@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity({
   name: 'users'
@@ -17,6 +17,6 @@ export class User {
   @CreateDateColumn({type: 'timestamp', default: () => "CURRENT_TIMESTAMP(6)"})
   createdAt: Date;
 
-  @Column({ type: 'timestamp', nullable: true})
-  updatedAt?: Date;
+  @UpdateDateColumn({type: 'timestamp', default: () => "CURRENT_TIMESTAMP(6)"})
+  updatedAt: Date;
 }

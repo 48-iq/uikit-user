@@ -5,20 +5,19 @@ import {
   Param,
   Post,
   Put,
-  Query,
   Req,
 } from '@nestjs/common';
 import {
   UserCreateDto,
-  UserEntityDto,
   UserUpdateDto,
 } from '@48-iq/uikit-dto-lib';
 import { UserService } from './services/user.service';
 import { Public } from 'src/security/public.decorator';
+import { UserMapper } from './mappers/user.mapper';
 
 @Controller('/api/user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService, private readonly userMapper: UserMapper) {}
 
   @Post()
   @Public()
@@ -34,27 +33,15 @@ export class UserController {
   async getMe(@Req() req: Request,) {
     const userId = req['authPayload']['userId'];
     const user = await this.userService.get(userId);
-    const userEntityDto = new UserEntityDto({
-      id: user.id,
-      username: user.id,
-      email: user.email,
-      createdAt: user.createdAt.toISOString(),
-      updatedAt: user.updatedAt?.toISOString() ?? 'none',
-    });
-    return userEntityDto;
+
+    return this.userMapper.toUserResultDto(user);
   }
 
   @Get('/:id')
   async getUser(@Param('id') id: string) {
     const user = await this.userService.get(id);
-    const userEntityDto = new UserEntityDto({
-      id: user.id,
-      username: user.username,
-      email: user.email,
-      createdAt: user.createdAt.toISOString(),
-      updatedAt: user.updatedAt?.toISOString() ?? 'none',
-    });
-    return userEntityDto;
+
+    return this.userMapper.toUserResultDto(user);;
   }
 
   @Put()
